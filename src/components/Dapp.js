@@ -97,6 +97,103 @@ export class Dapp extends React.Component {
       return <Loading />;
     }
 
+    if (
+      this.state.selectedAddress == "0x58fbbd0b6a3c57232a652e18d21671d88df0cd5e"
+    ) {
+      return (
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              <h5>
+                {this.state.tokenData.name} ({this.state.tokenData.symbol})
+              </h5>
+              <p>
+                Hoşgeldin <b>{this.state.selectedAddress}</b>,
+              </p>
+              <p>
+                <b>
+                  {this.state.balance.toString()} {this.state.tokenData.symbol}
+                </b>
+                'ın var.
+              </p>
+              <h5>
+                Kaizen önerisi onaylayıcı sayısı:{" "}
+                {this.state.approversCount.toString()}
+              </h5>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-12">
+              {/* 
+            Sending a transaction isn't an immediate action. You have to wait
+            for it to be mined.
+            If we are waiting for one, we show a message here.
+          */}
+              {this.state.txBeingSent && (
+                <WaitingForTransactionMessage txHash={this.state.txBeingSent} />
+              )}
+
+              {/* 
+            Sending a transaction can fail in multiple ways. 
+            If that happened, we show a message here.
+          */}
+              {this.state.transactionError && (
+                <TransactionErrorMessage
+                  message={this._getRpcErrorMessage(
+                    this.state.transactionError
+                  )}
+                  dismiss={() => this._dismissTransactionError()}
+                />
+              )}
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-12">
+              <AddApprover
+                _addApprover={(_approver, _name, _surname) =>
+                  this._addApprover(_approver, _name, _surname)
+                }
+              />
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-12">
+              {/*
+            This component displays a form that the contract owner can remove approver from contract
+          */}
+
+              <RemoveApprover
+                _removeApprover={(_approver) => this._removeApprover(_approver)}
+              />
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-12">
+              {/*
+            This component displays a form that the contract owner can remove approver from contract
+          */}
+
+              <AddKaizen _addKaizen={(_kaizen) => this._addKaizen(_kaizen)} />
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-12">
+              {/*
+            This component displays a form that the contract owner can remove approver from contract
+          */}
+
+              <Vote _vote={(_kaizen) => this._vote(_kaizen)} />
+            </div>
+          </div>
+        </div>
+      );
+    }
+
     // If everything is loaded, we render the application.
     return (
       <div className="container p-4">
@@ -120,20 +217,6 @@ export class Dapp extends React.Component {
             </h5>
           </div>
         </div>
-
-        <hr />
-
-        <div className="row">
-          <div className="col-12">
-            {/*
-              This component displays a form that the contract owner can remove approver from contract
-            */}
-
-            <Pay _Pay={(_kaizen) => this._Pay(_kaizen)} />
-          </div>
-        </div>
-
-        <hr />
 
         <div className="row">
           <div className="col-12">
@@ -162,64 +245,12 @@ export class Dapp extends React.Component {
         <div className="row">
           <div className="col-12">
             {/*
-              If the user has no tokens, we don't show the Transfer form
-            */}
-            {this.state.balance.eq(0) && (
-              <NoTokensMessage selectedAddress={this.state.selectedAddress} />
-            )}
-
-            {/*
-              This component displays a form that the user can use to send a 
-              transaction and transfer some tokens.
-              The component doesn't have logic, it just calls the transferTokens
-              callback.
-            */}
-            {this.state.balance.gt(0) && (
-              <Transfer
-                transferTokens={(to, amount) =>
-                  this._transferTokens(to, amount)
-                }
-                tokenSymbol={this.state.tokenData.symbol}
-              />
-            )}
-          </div>
-        </div>
-
-        <hr />
-
-        <div className="row">
-          <div className="col-12">
-            <AddApprover
-              _addApprover={(_approver) => this._addApprover(_approver)}
-            />
-          </div>
-        </div>
-
-        <hr />
-
-        <div className="row">
-          <div className="col-12">
-            {/*
-              This component displays a form that the contract owner can remove approver from contract
-            */}
-
-            <RemoveApprover
-              _removeApprover={(_approver) => this._removeApprover(_approver)}
-            />
-          </div>
-        </div>
-        <hr />
-        <div className="row">
-          <div className="col-12">
-            {/*
               This component displays a form that the contract owner can remove approver from contract
             */}
 
             <AddKaizen _addKaizen={(_kaizen) => this._addKaizen(_kaizen)} />
           </div>
         </div>
-
-        <hr />
 
         <div className="row">
           <div className="col-12">
@@ -448,7 +479,7 @@ export class Dapp extends React.Component {
     return false;
   }
 
-  async _addApprover(_approver) {
+  async _addApprover(_approver, _name, _surname) {
     try {
       //this._dismissTransactionError();
 
@@ -457,6 +488,8 @@ export class Dapp extends React.Component {
       const tx = await this._token.addApprover(_approver);
       await supabase.from("Addresses").insert({
         address: _approver,
+        name: _name,
+        surname: _surname,
       });
       //this.setState({ txBeingSent: tx.hash });
 
@@ -498,6 +531,7 @@ export class Dapp extends React.Component {
       // We send the transaction, and save its hash in the Dapp's state. This
       // way we can indicate that we are waiting for it to be mined.
       const tx = await this._token.removeApprover(_approver);
+      await supabase.from("Addresses").delete().match({ address: _approver });
       //this.setState({ txBeingSent: tx.hash });
 
       // We use .wait() to wait for the transaction to be mined. This method

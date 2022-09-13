@@ -3,7 +3,6 @@ import React from "react";
 export function AddKaizen({ _addKaizen }) {
   return (
     <div>
-      <h4>Add Kaizen</h4>
       <form
         onSubmit={(event) => {
           // This function just calls the transferTokens callback with the
@@ -16,12 +15,21 @@ export function AddKaizen({ _addKaizen }) {
         }}
       >
         <div className="form-group">
-          <label>SAP Notification Number</label>
-          <input className="form-control" type="text" name="_kaizen" required />
+          <input
+            className="form-control"
+            type="text"
+            name="_kaizen"
+            placeholder="SAP Bildirim Numarası"
+            required
+          />
         </div>
 
         <div className="form-group">
-          <input className="btn btn-primary" type="submit" value="Add" />
+          <input
+            className="btn btn-primary"
+            type="submit"
+            value="SAP Bildirim no ile Kaizen Ekle"
+          />
         </div>
       </form>
     </div>

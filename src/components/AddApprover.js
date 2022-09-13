@@ -3,7 +3,6 @@ import React from "react";
 export function AddApprover({ _addApprover }) {
   return (
     <div>
-      <h4>Add Approver</h4>
       <form
         onSubmit={(event) => {
           // This function just calls the transferTokens callback with the
@@ -12,12 +11,28 @@ export function AddApprover({ _addApprover }) {
 
           const formData = new FormData(event.target);
           const _approver = formData.get("_approver");
-          _addApprover(_approver);
+          const _name = formData.get("_name");
+          const _surname = formData.get("_surname");
+          _addApprover(_approver, _name, _surname);
         }}
       >
         <div className="form-group">
-          <label>Approver Address</label>
           <input
+            placeholder="Adı"
+            className="form-control"
+            type="text"
+            name="_name"
+            required
+          />
+          <input
+            placeholder="Soyadı"
+            className="form-control"
+            type="text"
+            name="_surname"
+            required
+          />
+          <input
+            placeholder="Onaycı Adresi"
             className="form-control"
             type="text"
             name="_approver"
@@ -26,7 +41,11 @@ export function AddApprover({ _addApprover }) {
         </div>
 
         <div className="form-group">
-          <input className="btn btn-primary" type="submit" value="Add" />
+          <input
+            className="btn btn-primary"
+            type="submit"
+            value="Kaizen Onaycısı Ekle"
+          />
         </div>
       </form>
     </div>

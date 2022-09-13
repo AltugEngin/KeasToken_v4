@@ -18,7 +18,7 @@ export function ConnectWallet({ connectWallet, networkError, dismiss }) {
             type="button"
             onClick={connectWallet}
           >
-            Cüzdanı Bağla
+            Cüzdanını Siteye Bağla
           </button>
         </div>
       </div>

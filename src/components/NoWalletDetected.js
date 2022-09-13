@@ -6,8 +6,8 @@ export function NoWalletDetected() {
       <div className="row justify-content-md-center">
         <div className="col-6 p-4 text-center">
           <p>
-            No Ethereum wallet was detected. <br />
-            Please install{" "}
+            Ethereum cüzdanı algılanamadı <br />
+            Lütfen Yükleyin{" "}
             <a
               href="http://metamask.io"
               target="_blank"
