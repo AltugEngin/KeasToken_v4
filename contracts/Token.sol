@@ -21,14 +21,14 @@ contract Token is IERC20 {
 
     string public constant name = "KEASTOKEN";
     string public constant symbol = "KEAS";
-    uint8 public constant decimals = 18;
+    uint8 public constant decimals = 6;
 
 
     mapping(address => uint256) balances;
 
     mapping(address => mapping (address => uint256)) allowed;
 
-    uint256 totalSupply_ = 10 ether;
+    uint256 totalSupply_ = 1000000;
 
     address public owner;
 
@@ -98,8 +98,8 @@ contract Token is IERC20 {
     }
 
     function addKaizen(uint256 _number) external {
-         require(_number>11000000 && _number<20000000,"Number you entered is invalid!");
-         require(kaizens[_number]._is==false,"This notification number has already been used before!");
+         require(_number>11000000 && _number<20000000,"Girdiginiz bildirim numarasi yanlistir");
+         require(kaizens[_number]._is==false,"Bu bildirim numarasi daha onceden kullanildi");
          kaizens[_number].notifierAddress=msg.sender;
          kaizens[_number]._is=true;   
     }
@@ -118,12 +118,13 @@ contract Token is IERC20 {
     }
 
     function voteKaizen(uint256 _number) external {
-        require(_number>11000000 && _number<20000000, "Number you entered is invalid!");
-        require(approvers[msg.sender]._is==true, "You are not an approver!");
-        require(kaizens[_number].voter!=msg.sender, "You already voted for this notification!");
+        require(_number>11000000 && _number<20000000, "Girdiginiz bildirim numarasi yanlistir");
+        require(approvers[msg.sender]._is==true, "Onayci olmadiginiz icin oy veremezsiniz");
+        require(kaizens[_number].voter!=msg.sender, "Bu kaizen'e zaten oy verdiniz");
+        require(kaizens[_number]._is==true,"Boyle bir kaizen bildirimi yoktur");
         kaizens[_number].voter=msg.sender;
         kaizens[_number].vote++;
-        if (kaizens[_number].vote>=approversCount/2 && balances[owner] >= 10) {
+        if (kaizens[_number].vote>approversCount/2 && balances[owner] >= 10) {
             transferFrom(owner, kaizens[_number].notifierAddress, 10);
         }
         

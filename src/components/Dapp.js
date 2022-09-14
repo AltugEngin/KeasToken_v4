@@ -177,7 +177,11 @@ export class Dapp extends React.Component {
             This component displays a form that the contract owner can remove approver from contract
           */}
 
-              <AddKaizen _addKaizen={(_kaizen) => this._addKaizen(_kaizen)} />
+              <AddKaizen
+                _addKaizen={(_kaizen, _aciklama) =>
+                  this._addKaizen(_kaizen, _aciklama)
+                }
+              />
             </div>
           </div>
 
@@ -565,14 +569,17 @@ export class Dapp extends React.Component {
     }
   }
 
-  async _addKaizen(_kaizen) {
+  async _addKaizen(_kaizen, _aciklama) {
     try {
       //this._dismissTransactionError();
 
       // We send the transaction, and save its hash in the Dapp's state. This
       // way we can indicate that we are waiting for it to be mined.
       const tx = await this._token.addKaizen(_kaizen);
-
+      await supabase.from("Kaizens").insert({
+        Bildirim: _kaizen,
+        Aciklama: _aciklama,
+      });
       //this.setState({ txBeingSent: tx.hash });
 
       // We use .wait() to wait for the transaction to be mined. This method

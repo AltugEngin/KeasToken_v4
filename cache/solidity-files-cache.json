@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "C:\\Users\\aengin\\projects\\keastoken_v3\\contracts\\Token.sol": {
-      "lastModificationDate": 1662460333851,
-      "contentHash": "32537d31184db58a0d85f00bf0179fab",
+      "lastModificationDate": 1663168568928,
+      "contentHash": "bf3012979ffb9f05caa363340f43e478",
       "sourceName": "contracts/Token.sol",
       "solcConfig": {
         "version": "0.8.9",

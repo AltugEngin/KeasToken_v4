@@ -11,7 +11,8 @@ export function AddKaizen({ _addKaizen }) {
 
           const formData = new FormData(event.target);
           const kaizen = formData.get("_kaizen");
-          _addKaizen(kaizen);
+          const aciklama = formData.get("_aciklama");
+          _addKaizen(kaizen, aciklama);
         }}
       >
         <div className="form-group">
@@ -20,6 +21,13 @@ export function AddKaizen({ _addKaizen }) {
             type="text"
             name="_kaizen"
             placeholder="SAP Bildirim Numarası"
+            required
+          />
+          <input
+            className="form-control"
+            type="text"
+            name="_aciklama"
+            placeholder="SAP Bildirim Açıklaması"
             required
           />
         </div>
