@@ -252,7 +252,11 @@ export class Dapp extends React.Component {
               This component displays a form that the contract owner can remove approver from contract
             */}
 
-            <AddKaizen _addKaizen={(_kaizen) => this._addKaizen(_kaizen)} />
+            <AddKaizen
+              _addKaizen={(_kaizen, _aciklama) =>
+                this._addKaizen(_kaizen, _aciklama)
+              }
+            />
           </div>
         </div>
 
