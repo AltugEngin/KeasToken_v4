@@ -32,4 +32,4 @@ First all voters and users must have a [Metamask] installed in their laptop or m
 -Since adding or removing voters, entering a new notification to smart contract and voting is a kind of transaction, it requires user must have some GoerliETH in his/her wallet in order to make this transaction. GoerliETH is freely available from any available faucets. **This GoerliETH has no value. We need them just to make transactions in test network This is not Ethereum**
 
 [metamask]: https://metamask.io/
-[keas kaizen dapp]: keas.netlify.app
+[keas kaizen dapp]: https://keas.netlify.app/
