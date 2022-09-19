@@ -6,19 +6,17 @@ This application is a User Interface to a smart contract called [KEAS Kaizen Dap
 
 ### Role-1 : Contract Owner
 
-[owner_ui]
+![owner_ui](owner_user_interface.PNG)
 
 Contract owner is basically the person who deploys the contract to the network. Only contract owner has right to add or remove voters with their names and addresses to the contract (names of the voters are stored in a cloud database not in the contract). After successfully completion of deployment contract owner recevies 1000000 KEAS TOKEN.
 
 ### Role-2 : Voters
 
-[user_ui]
-
 Voter is a person who has a right to vote to any Kaizen Notification.
 
 ### Role-3 : User
 
-[user_ui]
+![user_ui](user_voter_user_interface.PNG)
 
 The user will enter his/her Kaizen Notification Number with description (Descriptions are stored in a cloud database not in the smart contract)
 
@@ -39,6 +37,3 @@ First all voters and users must have a [Metamask] installed in their laptop or m
 
 [metamask]: https://metamask.io/
 [keas kaizen dapp]: https://keas.netlify.app/
-
-![owner_ui](owner_user_interface.PNG)
-![user_ui](user_voter_user_interface.PNG)
