@@ -40,5 +40,5 @@ First all voters and users must have a [Metamask] installed in their laptop or m
 [metamask]: https://metamask.io/
 [keas kaizen dapp]: https://keas.netlify.app/
 
-![owner_ui]: owner_user_interface.png
-![user_ui]: user_voter_user_interface.PNG
+![owner_ui](owner_user_interface.png)
+![user_ui](user_voter_user_interface.PNG)
